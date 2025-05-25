@@ -15,10 +15,10 @@ router.post('/', async (req,res) => {
 router.get('/', async (req,res) => {
 
     try {
-        const event = await updateEvent(Number(req.params.id), req.body);
-        res.json(event);
+        const events = await getEventsByUsername();
+        res.json(events);
     } catch (err) {
-        res.status(500).json({ error: 'Failed to update events'})
+        res.status(500).json({ error: 'Failed to fetch events'})
     }
 
 })

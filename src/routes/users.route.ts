@@ -15,6 +15,16 @@ router.post('/signup', async(req,res) => {
 
 router.post('/login', async (req,res) => {
     try {
+        const { username, password} = req.body;
+        const user = await login(username, password);
+        res.status(200).json({ message: "Login success", user});
+    } catch (err) {
+        res.status(401).json({ error: err.message });
+    }
+})
+
+router.post('/change', async (req,res) => {
+    try {
         const { username, newPassword} = req.body;
         const updatedUser = await changePassword(username, newPassword);
         res.status(200).json({ message: "Password changed", user: updatedUser });
