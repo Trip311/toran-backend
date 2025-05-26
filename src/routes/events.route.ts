@@ -1,5 +1,5 @@
 import express from 'express'
-import { createEvent, getEventsByUsername, updateEvent, deleteEvent } from '../services/event.service'
+import { createEvent, getEventsByUsername, updateEvent, deleteEvent, getEventsByFilters } from '../services/event.service'
 
 const router = express.Router();
 
@@ -44,6 +44,22 @@ router.delete('/:id', async (req,res) => {
 
     }
 })
+
+
+router.get('/filter', async (req, res) => {
+    const { username, type } = req.query;
+
+    if (!username) {
+        return res.status(400).json({ error: 'Username is required' });
+    }
+
+    try {
+        const events = await getEventsByFilters(username.toString(), type?.toString());
+        res.json(events);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch filtered events' });
+    }
+});
 
 
 export default router;

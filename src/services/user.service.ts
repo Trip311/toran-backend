@@ -1,10 +1,14 @@
-import { addUser, findUserByUsername, updatePassword } from "../repository/user.repository";
+import { addUser, findUserByUsername, updatePassword, findAllUsers } from "../repository/user.repository";
 import { IUser } from '../interfaces/user.interface';
 
 const signup = async (userData: Omit<IUser, "id">) => {
     return await addUser({ ...userData })
 }
 
+
+const fetchUsers = async () => {
+    return await findAllUsers();
+};
 
 const login = async (username: string, password: string) => {
     const user = await findUserByUsername(username);
@@ -26,4 +30,4 @@ const changePassword = async (username: string, newPassword: string) => {
 }
 
 
-export { login, signup, changePassword};
+export { login, signup, changePassword, fetchUsers};

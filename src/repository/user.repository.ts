@@ -3,6 +3,10 @@ import { User } from "../entity/users.entity";
 
 export const userRepository = dbConnection.getRepository(User);
 
+const findAllUsers = async () => {
+    return await userRepository.find();
+}
+
 
 const addUser = async (userData: Omit<User, "id">) => {
     const existing = await userRepository.findOneBy( { username: userData.username });
@@ -25,4 +29,4 @@ const updatePassword = async (username: string, newPassword: string) => {
     return await userRepository.save(user);
 }
 
-export {addUser, findUserByUsername, updatePassword};
+export {addUser, findUserByUsername, updatePassword, findAllUsers};

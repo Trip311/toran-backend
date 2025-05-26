@@ -1,7 +1,9 @@
 import express from 'express';
-import { signup, login, changePassword } from '../services/user.service';
+import { signup, login, changePassword, fetchUsers } from '../services/user.service';
 
 const router = express.Router();
+
+
 
 router.post('/signup', async(req,res) => {
     try {
@@ -34,5 +36,16 @@ router.post('/change', async (req,res) => {
 
     }
 })
+
+
+router.get('/users', async (req, res) => {
+    try {
+        const users = await fetchUsers();
+        res.status(200).json({ users });
+    } catch (err: any) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 
 export default router;
