@@ -1,4 +1,4 @@
-import { MoreThan } from "typeorm";
+
 import { IEvent } from "../interfaces/event.interface";
 import { EventRepo } from "../repository/event.repository";
 
@@ -20,15 +20,3 @@ export const deleteEvent = async (id:number) => {
     return await EventRepo.delete(id);
 }
 
-export const getEventsByFilters = async (username: string, type: string) => {
-    const now = new Date();
-    const where: any = {
-        username,
-        date: MoreThan(now)
-    };
-    if (type) {
-        where.type = type;
-    }
-
-    return await EventRepo.find({ where });
-};
