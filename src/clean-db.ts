@@ -26,3 +26,5 @@ const cleandb = async () => {
         process.exit(1);
     }
 }
+
+cleandb();

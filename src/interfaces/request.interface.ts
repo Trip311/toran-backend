@@ -6,5 +6,4 @@ export interface IRequest {
   toDate: string;
   shiftType: 'jira' | 'kitchen';
   reason: string;
-  status: 'pending' | 'approved' | 'declined';
 }
