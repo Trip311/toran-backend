@@ -1,5 +1,5 @@
 import express from 'express'
-import { getRequests, createRequest } from '../services/request.service'
+import { getRequests, createRequest, deleteRequest } from '../services/request.service'
 
 const router = express.Router();
 
@@ -23,6 +23,18 @@ router.get('/', async (req,res) => {
         res.status(500).json({ error: 'Failed to fetch requests'})
     }
 
+})
+
+
+router.delete('/:id', async (req,res) => {
+    try {
+        await deleteRequest(Number(req.params.id))
+        res.json({ message: 'Request deleted'})
+    } catch (err) {
+
+        res.status(500).json({ error: 'Failed to delete request'})
+
+    }
 })
 
 

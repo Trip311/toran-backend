@@ -1,5 +1,5 @@
 export interface IRequest {
-  id: number;
+  id?: number;
   fromUser: string;
   fromDate: string;
   toUser: string;

@@ -6,7 +6,7 @@ import { IRequest } from '../interfaces/request.interface'
 export class Request implements IRequest {
 
     @PrimaryGeneratedColumn()
-    id:number;
+    id :number;
 
     @Column()
     fromUser: string;
