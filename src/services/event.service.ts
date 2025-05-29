@@ -20,3 +20,16 @@ export const deleteEvent = async (id:number) => {
     return await EventRepo.delete(id);
 }
 
+
+
+
+export const deleteEventsByGroup = async (groupId: string) => {
+    return await EventRepo.delete({ repeatGroupId: groupId });
+}
+
+export const updateEventsByGroup = async (groupId: string, data: Partial<IEvent>) => {
+    await EventRepo.update({ repeatGroupId: groupId }, data);
+    return await EventRepo.find({ where: { repeatGroupId: groupId } });
+}
+
+

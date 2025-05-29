@@ -1,5 +1,6 @@
 import express from 'express'
-import { createEvent, getEventsByUsername, updateEvent, deleteEvent } from '../services/event.service'
+import { createEvent, getEventsByUsername, updateEvent, deleteEvent, deleteEventsByGroup, updateEventsByGroup } from '../services/event.service'
+import { EventRepo } from '../repository/event.repository';
 
 const router = express.Router();
 
@@ -44,6 +45,27 @@ router.delete('/:id', async (req,res) => {
 
     }
 })
+
+
+
+router.delete('/group/:groupId', async (req, res) => {
+    try {
+        await deleteEventsByGroup(req.params.groupId);
+        res.json({ message: 'Group events deleted' });
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to delete group events' });
+    }
+});
+
+router.put('/group/:groupId', async (req, res) => {
+    try {
+        const updated = await updateEventsByGroup(req.params.groupId, req.body);
+        res.json(updated);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to update group events' });
+    }
+});
+
 
 
 

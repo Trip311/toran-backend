@@ -8,9 +8,6 @@ export class Event implements IEvent {
     id: number;
 
     @Column()
-    title: string;
-
-    @Column()
     type: 'jira' | 'kitchen'
 
     @Column()
@@ -21,5 +18,12 @@ export class Event implements IEvent {
 
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
     endDate: Date;
+
+    @Column()
+    note: string;
+
+    @Column({ nullable: true })
+    repeatGroupId?: string;
+
 
 }
