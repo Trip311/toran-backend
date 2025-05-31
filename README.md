@@ -12,7 +12,7 @@ DB_USERNAME=postgres
 DB_PASSWORD=postgres
 DB_DATABASE=toran_db
 
-run first:
+for dependenices:
 npm i
 
 start backend with this command:
