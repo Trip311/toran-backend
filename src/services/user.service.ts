@@ -1,16 +1,17 @@
 import { addUser, findUserByUsername, updatePassword, findAllUsers } from "../repository/user.repository";
 import { IUser } from '../interfaces/user.interface';
+import { User }  from '../entity/users.entity';
 
-const signup = async (userData: Omit<IUser, "id">) => {
+const signup = async (userData: Omit<IUser, "id">): Promise<User> => {
     return await addUser({ ...userData })
 }
 
 
-const fetchUsers = async () => {
+const fetchUsers = async (): Promise<User[]> => {
     return await findAllUsers();
 };
 
-const login = async (username: string, password: string) => {
+const login = async (username: string, password: string): Promise<User> => {
     const user = await findUserByUsername(username);
     if (!user) throw new Error("user not found");
 
@@ -22,7 +23,7 @@ const login = async (username: string, password: string) => {
     return user;
 }
 
-const changePassword = async (username: string, newPassword: string) => {
+const changePassword = async (username: string, newPassword: string): Promise<User> => {
     const user = await findUserByUsername(username);
     if (!user) throw new Error("User not found");
 
