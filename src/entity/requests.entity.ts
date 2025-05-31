@@ -13,11 +13,11 @@ export class Request implements IRequest {
     @Column({ type: 'date'})
     fromDate: string;
 
-    @Column()
-    toUser: string;
+    @Column({ nullable: true })
+    toUser?: string;
 
-    @Column({ type: 'date'})
-    toDate: string;
+    @Column({ type: 'date', nullable: true })
+    toDate?: string;
 
     @Column()
     shiftType: 'jira' | 'kitchen';
