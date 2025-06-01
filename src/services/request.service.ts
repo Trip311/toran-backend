@@ -24,8 +24,8 @@ export const updateRequest = async (id: number, data: Partial<Pick<IRequest, 'to
     const request = await RequestRepo.findOneBy({ id });
     if (!request) return null;
 
-    request.toUser = data.toUser ?? request.toUser;
-    request.toDate = data.toDate ?? request.toDate;
+    if ('toUser' in data) request.toUser = data.toUser;
+    if ('toDate' in data) request.toDate = data.toDate;
 
     return await RequestRepo.save(request);
 };
