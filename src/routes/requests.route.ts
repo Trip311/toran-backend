@@ -1,5 +1,13 @@
 import express, { Request, Response } from 'express';
-import { getRequests, createRequest, deleteRequest, updateRequest, fetchEmptyRequests, fetchRequestsByStatus, fetchRequestsByUsername, fetchRequestsByUsernameAndStatus } from '../services/request.service';
+import { getRequests,
+         createRequest,
+         deleteRequest,
+         updateRequest, 
+         fetchEmptyRequests, 
+         fetchRequestsByStatus, 
+         fetchRequestsByUsername, 
+         fetchRequestsByUsernameAndStatus,
+         updateRequestStatus } from '../services/request.service';
 
 const router = express.Router();
 
@@ -77,6 +85,19 @@ router.get('/user/:username/status/:status', async (req: Request<{ username: str
         res.json(requests);
     } catch (err) {
         res.status(500).json({ error: 'Failed to fetch requests by username and status' });
+    }
+});
+
+
+router.patch('/:id/status', async (req: Request<{ id: string }, {}, { status: string }>, res: Response) => {
+    try {
+        const updated = await updateRequestStatus(Number(req.params.id), req.body.status);
+        if (!updated) {
+            return res.status(404).json({ error: 'Request not found' });
+        }
+        res.json(updated);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to update request status' });
     }
 });
 

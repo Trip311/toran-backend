@@ -55,3 +55,10 @@ export const fetchRequestsByUsername = async (username: string): Promise<Request
 export const fetchRequestsByUsernameAndStatus = async (username: string, status: string): Promise<Request[]> => {
     return await RequestRepo.find({ where: { fromUser: username, status: status as RequestStatus } });
 };
+
+export const updateRequestStatus = async (id: number, status: RequestStatus): Promise<Request | null> => {
+    const request = await RequestRepo.findOneBy({ id });
+    if (!request) return null;
+    request.status = status;
+    return await RequestRepo.save(request);
+};
