@@ -1,6 +1,7 @@
 import { IRequest } from "../interfaces/request.interface";
 import { RequestRepo } from "../repository/request.repository";
 import { Request } from "../entity/requests.entity";
+import { RequestStatus } from "../interfaces/request.interface";
 
 
 
@@ -38,4 +39,19 @@ export const fetchEmptyRequests = async (): Promise<Request[]> => {
             toDate: null,
         },
     });
+};
+
+
+
+
+export const fetchRequestsByStatus = async (status: string): Promise<Request[]> => {
+    return await RequestRepo.find({ where: { status: status as RequestStatus } });
+};
+
+export const fetchRequestsByUsername = async (username: string): Promise<Request[]> => {
+    return await RequestRepo.find({ where: { fromUser: username } });
+};
+
+export const fetchRequestsByUsernameAndStatus = async (username: string, status: string): Promise<Request[]> => {
+    return await RequestRepo.find({ where: { fromUser: username, status: status as RequestStatus } });
 };

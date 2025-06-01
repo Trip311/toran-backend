@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { getRequests, createRequest, deleteRequest, updateRequest, fetchEmptyRequests } from '../services/request.service';
+import { getRequests, createRequest, deleteRequest, updateRequest, fetchEmptyRequests, fetchRequestsByStatus, fetchRequestsByUsername, fetchRequestsByUsernameAndStatus } from '../services/request.service';
 
 const router = express.Router();
 
@@ -51,5 +51,34 @@ router.put('/:id', async (req: Request<{ id: string }>, res: Response) => {
         res.status(500).json({ error: 'Failed to update request' });
     }
 });
+
+
+router.get('/status/:status', async (req: Request<{ status: string }>, res: Response) => {
+    try {
+        const requests = await fetchRequestsByStatus(req.params.status);
+        res.json(requests);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch requests by status' });
+    }
+});
+
+router.get('/user/:username', async (req: Request<{ username: string }>, res: Response) => {
+    try {
+        const requests = await fetchRequestsByUsername(req.params.username);
+        res.json(requests);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch requests by username' });
+    }
+});
+
+router.get('/user/:username/status/:status', async (req: Request<{ username: string; status: string }>, res: Response) => {
+    try {
+        const requests = await fetchRequestsByUsernameAndStatus(req.params.username, req.params.status);
+        res.json(requests);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch requests by username and status' });
+    }
+});
+
 
 export default router;

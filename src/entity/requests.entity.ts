@@ -1,5 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 import { IRequest } from '../interfaces/request.interface'
+import { RequestStatus } from '../interfaces/request.interface'; 
+
+
+
 
 @Entity()
 export class Request implements IRequest {
@@ -24,5 +28,8 @@ export class Request implements IRequest {
 
     @Column()
     reason: string;
+
+    @Column({ type: 'varchar', default: 'pending' })
+    status: RequestStatus; // <-- Add this line
 
 }

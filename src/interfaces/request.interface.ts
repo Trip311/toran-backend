@@ -1,3 +1,9 @@
+
+
+
+export type RequestStatus = 'pending' | 'waitingforuser' | 'waitingforadmin';
+
+
 export interface IRequest {
   id?: number;
   fromUser: string;
@@ -6,4 +12,5 @@ export interface IRequest {
   toDate?: string;
   shiftType: 'jira' | 'kitchen';
   reason: string;
+  status: RequestStatus;
 }
