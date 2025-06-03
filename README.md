@@ -57,7 +57,7 @@ Features/Bugs:
 
 * In the About section, check the issue with the title.
 
-* Add to Join (Shift Pickup Functionality):
+Add to Join (Shift Pickup Functionality):
 
 * The idea is that a user can take a shift from someone else once they choose this option.
 
