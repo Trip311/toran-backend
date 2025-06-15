@@ -7,7 +7,7 @@ dotenv.config();
 
 const { DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE, DB_PORT } = process.env;
 
-if (!DB_HOST || !DB_USERNAME || !DB_PASSWORD || !DB_DATABASE|| !DB_PORT) {
+if (!DB_HOST || !DB_USERNAME || !DB_PASSWORD || !DB_DATABASE || !DB_PORT) {
     throw new Error("Database environment variables are not set properly.");
 }
 
