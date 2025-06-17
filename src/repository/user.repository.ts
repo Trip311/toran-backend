@@ -1,5 +1,8 @@
+import bcrypt from 'bcrypt';
 import { dbConnection } from "../config/db.config";
 import { User } from "../entity/users.entity";
+
+const SALT_ROUNDS = 10;
 
 export const userRepository = dbConnection.getRepository(User);
 
@@ -12,7 +15,13 @@ const addUser = async (userData: Omit<User, "id">): Promise<User> => {
     const existing = await userRepository.findOneBy( { username: userData.username });
     if (existing) throw new Error("Username aleardy exists");
 
-    const user = userRepository.create(userData);
+    const hashedPassword = await bcrypt.hash(userData.password, SALT_ROUNDS);
+
+    const user = userRepository.create({
+        ...userData,
+        password: hashedPassword,
+
+    });
     return await userRepository.save(user);
 }
 
