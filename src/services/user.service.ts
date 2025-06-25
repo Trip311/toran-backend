@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import { addUser, findUserByUsername, updatePassword, findAllUsers } from "../repository/user.repository";
 import { IUser } from '../interfaces/user.interface';
 import { User }  from '../entity/users.entity';
@@ -13,9 +14,10 @@ const fetchUsers = async (): Promise<User[]> => {
 
 const login = async (username: string, password: string): Promise<User> => {
     const user = await findUserByUsername(username);
-    if (!user) throw new Error("user not found");
+    if (!user) throw new Error("User not found");
 
-    if (user.password !== password) {
+    const isMAtch = await bcrypt.compare(password, user.password);
+    if (!isMAtch) {
         throw new Error("Invalid credentials");
     }
 
